@@ -1,4 +1,4 @@
-<%= form_with(model: user) do |form| %>
+<%= form_with(model: user, html: { data: { controller: "upload" } } ) do |form| %>
   <% if user.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -16,10 +16,13 @@
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div class="field" data-upload-target="progress">
     <%= form.label :profile_video %>
-    <%= form.file_field :profile_video, accept: "video/*", direct_upload: true%>
+    </br>
+    <%= form.file_field :profile_video, accept: "video/*", direct_upload: true %>
   </div>
+
+  <progress data-upload-target="bar" id="file" max="100" value="0"> 70% </progress>
 
   <div class="actions">
     <%= form.submit %>
